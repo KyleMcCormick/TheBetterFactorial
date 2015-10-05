@@ -15,11 +15,11 @@
  *    - An optimal asymptotic running time ( via memoization )
  *    - An efficient run time ( by choosing iteration over recursion )
  *
- *  The following factorial function that runs in amortized constant time and
- *  doesn't use a global array or any form of precomputation. It manages this by
- *  using a local static (static meaning local scope & full program duration)
- *  vector of memoized factorial values, and only performing new computations
- *  when necessary.
+ *  The following factorial function runs in amortized constant time and doesn't
+ *  use a global array or any form of precomputation. It manages this by using a
+ *  local static (static meaning local scope & full program duration) vector of
+ *  memoized factorial values, and only performing new computations when
+ *  necessary.
  *
  *  Unlike many implementations, it has an overflow check and a check for
  *  negative input.
@@ -29,7 +29,7 @@
  *
  *  When extension of the static vector is required, it uses an iterative
  *  technique, keeping this function from requiring any more than one stack
- *  frame, and saving time by avoiding pushing on another stack frame.
+ *  frame, and saving time by avoiding pushing on extra stack frames.
  *
  *  Key disadvantages:
  *    - Requires linear( O(n) ) storage space
