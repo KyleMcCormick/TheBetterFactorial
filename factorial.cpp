@@ -1,16 +1,27 @@
 
 /*  The Better Factorial Function
  *  ----------------------------------------------------------------------------
- *  Typically, one of the primary examples showing the power
  *
- *  The following is a factorial function that runs in amortized constant time,
- *  doesn't use a global array or any form of precomputation.
+ *  Typically, one of the primary examples used to display a programming
+ *  language's features and syntax is the factorial function. Often shown as a
+ *  basic linear( O(n) ) recursive or iterative function, it will typically lack
+ *  many important features of good software design.
  *
- *  It manages this by using a local static (static meaning local scope & full
- *  program duration) vector of memoized factorial values, and only performing
- *  new computations when necessary.
+ *  The factorial function below exhibits C++'s power by incorporating these
+ *  often forgotten features of quality software:
+ *    - Input validation
+ *    - Parametric polymorphism
+ *    - Type property validation
+ *    - An optimal asymptotic running time ( via memoization )
+ *    - An efficient run time ( by choosing iteration over recursion )
  *
- *  Unlike many implementations, it also has an overflow check and a check for
+ *  The following factorial function that runs in amortized constant time and
+ *  doesn't use a global array or any form of precomputation. It manages this by
+ *  using a local static (static meaning local scope & full program duration)
+ *  vector of memoized factorial values, and only performing new computations
+ *  when necessary.
+ *
+ *  Unlike many implementations, it has an overflow check and a check for
  *  negative input.
  *
  *  It is templated, and has static assertions to ensure that both the input and
@@ -18,7 +29,11 @@
  *
  *  When extension of the static vector is required, it uses an iterative
  *  technique, keeping this function from requiring any more than one stack
- *  frame.
+ *  frame, and saving time by avoiding pushing on another stack frame.
+ *
+ *  Key disadvantages:
+ *    - Requires linear( O(n) ) storage space
+ *    - Extra features require a bit more code than a typical implementation
  *
 */
 
@@ -40,8 +55,15 @@
 template< class Output_Type, class Input_Type = Output_Type >
 Output_Type factorial( Input_Type Input ){
 
-    static_assert( std::is_integral< Output_Type >::value, "Bad factorial output type" );
-    static_assert( std::is_integral<  Input_Type >::value, "Bad factorial input type" );
+    static_assert(
+        std::is_integral< Output_Type >::value,
+        "Bad factorial output type"
+    );
+
+    static_assert(
+        std::is_integral< Input_Type >::value,
+        "Bad factorial input type"
+    );
 
     static std::vector< Output_Type > results( 2, 1 );
 
