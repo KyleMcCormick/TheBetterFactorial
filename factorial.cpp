@@ -1,14 +1,41 @@
+
+/*  The Better Factorial Function
+ *  ----------------------------------------------------------------------------
+ *  Typically, one of the primary examples showing the power
+ *
+ *  The following is a factorial function that runs in amortized constant time,
+ *  doesn't use a global array or any form of precomputation.
+ *
+ *  It manages this by using a local static (static meaning local scope & full
+ *  program duration) vector of memoized factorial values, and only performing
+ *  new computations when necessary.
+ *
+ *  Unlike many implementations, it also has an overflow check and a check for
+ *  negative input.
+ *
+ *  It is templated, and has static assertions to ensure that both the input and
+ *  output types are integral.
+ *
+ *  When extension of the static vector is required, it uses an iterative
+ *  technique, keeping this function from requiring any more than one stack
+ *  frame.
+ *
+*/
+
+
 #include <iostream>
 #include <vector>
 #include <type_traits>
 #include <string>
 #include <stdexcept>
 
+
 /*
    compile with: g++ factorial.cpp -o factorial -std=c++14 -Wall
    test with:    ./factorial -20 -1 0 1 2 3 4 5 6 7 8 13 19 20 21
                  98765432109876543210 hello
 */
+
 
 template< class Output_Type, class Input_Type = Output_Type >
 Output_Type factorial( Input_Type Input ){
